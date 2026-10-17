@@ -68,19 +68,19 @@ export const Home: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column: Typography, Badge & CTAs */}
           <div className="space-y-6 lg:space-y-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold shadow-[0_0_15px_rgba(52,211,153,0.15)]">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span>8 Stages · 4 Career Tracks · Official Docs & CLI Matrix</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono font-semibold shadow-xs dark:shadow-[0_0_15px_rgba(52,211,153,0.15)]">
+              <Sparkles className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>8 Stages · 4 Career Tracks · Official Docs & Git Matrix</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1] break-words">
               Master React Native <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-600 dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-400">
                 At The C++ & JSI Level
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-normal">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl font-normal">
               An interactive visual curriculum for senior developers, mobile leads, and architects. Deconstruct the C++ Shadow Tree, zero-serialization HostObjects, 120Hz UI thread worklets, and native bridging in Java and Swift.
             </p>
 
@@ -88,7 +88,7 @@ export const Home: React.FC = () => {
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="#roadmap"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold tracking-wide text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:shadow-[0_0_30px_rgba(52,211,153,0.35)] active:scale-95 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold tracking-wide text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:shadow-[0_0_30px_rgba(52,211,153,0.35)] active:scale-95 transition-all shadow-md"
               >
                 <span>Curriculum Roadmap</span>
                 <ArrowRight className="w-4 h-4" />
@@ -96,17 +96,17 @@ export const Home: React.FC = () => {
 
               <Link
                 to="/docs"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold text-white border border-emerald-500/40 bg-emerald-950/50 hover:bg-emerald-900/60 transition-all active:scale-95 shadow-[0_0_20px_rgba(52,211,153,0.2)]"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold text-slate-900 dark:text-white border border-emerald-300 dark:border-emerald-500/40 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all active:scale-95 shadow-sm dark:shadow-[0_0_20px_rgba(52,211,153,0.2)]"
               >
-                <Terminal className="w-4 h-4 text-emerald-400" />
-                <span>Developer Docs & CLI Hub</span>
+                <Terminal className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Developer Docs & Git Hub</span>
               </Link>
 
               <Link
                 to="/topic/old-bridge-vs-new-architecture-jsi"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-full text-xs sm:text-sm font-mono font-semibold text-slate-300 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-cyan-500/30 transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-full text-xs sm:text-sm font-mono font-semibold text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 hover:border-cyan-500/30 transition-all active:scale-95 shadow-xs"
               >
-                <Zap className="w-4 h-4 text-cyan-400" />
+                <Zap className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                 <span>JSI Simulator</span>
               </Link>
             </div>
@@ -121,32 +121,32 @@ export const Home: React.FC = () => {
 
       {/* 2. BaaS & RLS Database Status Pill */}
       <section className="w-full">
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 hover:border-emerald-500/30 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 sm:p-8 hover:border-emerald-500/30 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-sm dark:shadow-[0_4px_24px_rgba(0,0,0,0.4)]">
           <div className="flex items-start sm:items-center gap-4">
-            <div className="p-3 rounded-xl bg-black/60 border border-white/10 text-emerald-400 shrink-0">
-              <Database className="w-5 h-5 text-emerald-400" />
+            <div className="p-3 rounded-xl bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/10 text-emerald-600 dark:text-emerald-400 shrink-0">
+              <Database className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div className="space-y-1">
-              <div className="text-sm font-mono font-bold text-white flex items-center gap-2">
+              <div className="text-sm font-mono font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <span>Database Sync:</span>
-                <span className="text-emerald-400 font-mono">
+                <span className="text-emerald-600 dark:text-emerald-400 font-mono">
                   {dataSource === 'supabase'
                     ? 'Connected to PostgreSQL & Supabase Auth'
                     : 'Modular Offline Seed Engine (Zero Setup Needed)'}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                Security Model: Row Level Security (RLS) guarded for owner <code className="text-cyan-400 font-mono">akashyadavazm@gmail.com</code>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Security Model: Row Level Security (RLS) guarded for owner <code className="text-cyan-600 dark:text-cyan-400 font-mono">akashyadavazm@gmail.com</code>
               </p>
             </div>
           </div>
 
           <Link
             to="/sql-schema"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium text-slate-300 hover:text-white border border-white/10 bg-black/40 hover:border-emerald-500/30 transition-colors whitespace-nowrap shrink-0 self-start sm:self-auto"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-black/40 hover:border-emerald-500/30 transition-colors whitespace-nowrap shrink-0 self-start sm:self-auto shadow-xs"
           >
             <span>View SQL Blueprint</span>
-            <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+            <ArrowRight className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
           </Link>
         </div>
       </section>

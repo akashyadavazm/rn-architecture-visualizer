@@ -214,25 +214,25 @@ export PATH=$JAVA_HOME/bin:$PATH`,
   };
 
   return (
-    <div className="my-8 rounded-2xl bg-[#0d0d0d]/90 border border-white/10 p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+    <div className="my-8 rounded-2xl bg-white dark:bg-[#0d0d0d]/90 border border-slate-200 dark:border-white/10 p-5 sm:p-7 shadow-xl dark:shadow-2xl relative overflow-hidden transition-colors duration-150 text-slate-900 dark:text-white">
       {/* Glow highlight */}
       <div className="absolute -top-24 -right-24 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       {/* Header */}
-      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-white/10">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 text-[11px] font-mono font-semibold">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30 text-[11px] font-mono font-semibold">
               CLI Toolchain Hub
             </span>
-            <span className="text-xs text-slate-400 font-mono">React Native 0.76+</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">React Native 0.76+</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-            <Terminal className="w-5 h-5 text-emerald-400" />
+          <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+            <Terminal className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
             Environment Matrix & Doctor Diagnostics
           </h3>
-          <p className="text-sm text-slate-300 mt-1 max-w-2xl">
+          <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 max-w-2xl font-normal">
             Select your development machine OS and target mobile platform to generate verified setup scripts and run an in-browser diagnostic scan.
           </p>
         </div>
@@ -265,19 +265,19 @@ export PATH=$JAVA_HOME/bin:$PATH`,
         </div>
       </div>
 
-      {/* Selectors Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-5 border-b border-white/10 relative z-10">
+      {/* Selectors Grid: Spacious 2-Column layout to eliminate card overflow */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 py-6 border-b border-slate-200 dark:border-white/10 relative z-10">
         {/* Host OS Selector */}
-        <div>
-          <label className="block text-xs font-mono font-semibold text-slate-400 mb-2 uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="block text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             1. Select Host Machine OS
           </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 gap-3">
             {[
-              { id: 'macos-arm', label: 'macOS (M1/M2/M3)', icon: Apple },
-              { id: 'macos-intel', label: 'macOS (Intel)', icon: Apple },
-              { id: 'windows', label: 'Windows (10/11)', icon: Monitor },
-              { id: 'linux', label: 'Linux (Ubuntu)', icon: Laptop },
+              { id: 'macos-arm', title: 'macOS', sub: 'Apple Silicon (M1–M4)', icon: Apple },
+              { id: 'macos-intel', title: 'macOS', sub: 'Intel (x86_64)', icon: Apple },
+              { id: 'windows', title: 'Windows', sub: 'Windows 10 / 11 (PowerShell)', icon: Monitor },
+              { id: 'linux', title: 'Linux', sub: 'Ubuntu / Debian (APT)', icon: Laptop },
             ].map((os) => {
               const Icon = os.icon;
               const isSelected = hostOS === os.id;
@@ -286,14 +286,20 @@ export PATH=$JAVA_HOME/bin:$PATH`,
                   key={os.id}
                   type="button"
                   onClick={() => handleOSChange(os.id as HostOS)}
-                  className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between gap-2 ${
+                  className={`min-w-0 p-3.5 break-words rounded-xl border text-left transition-all flex flex-col justify-between gap-2.5 ${
                     isSelected
-                      ? 'bg-emerald-950/60 border-emerald-500/60 text-white shadow-[0_0_15px_rgba(52,211,153,0.2)]'
-                      : 'bg-white/5 border-white/10 text-slate-400 hover:text-slate-200 hover:bg-white/[0.08]'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/60 border-emerald-500 text-slate-900 dark:text-white shadow-sm dark:shadow-[0_0_15px_rgba(52,211,153,0.2)] ring-1 ring-emerald-500/40'
+                      : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.08]'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isSelected ? 'text-emerald-400' : 'text-slate-400'}`} />
-                  <span className="text-xs font-semibold leading-tight">{os.label}</span>
+                  <div className="flex items-center justify-between w-full">
+                    <Icon className={`w-4 h-4 ${isSelected ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`} />
+                    {isSelected && <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold leading-tight text-slate-900 dark:text-white">{os.title}</div>
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 leading-tight mt-0.5">{os.sub}</div>
+                  </div>
                 </button>
               );
             })}
@@ -301,15 +307,15 @@ export PATH=$JAVA_HOME/bin:$PATH`,
         </div>
 
         {/* Target Platform Selector */}
-        <div>
-          <label className="block text-xs font-mono font-semibold text-slate-400 mb-2 uppercase tracking-wider">
+        <div className="space-y-2">
+          <label className="block text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
             2. Select Target Platform
           </label>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-3">
             {[
-              { id: 'android', label: 'Android Only', sub: 'APK / AAB' },
-              { id: 'ios', label: 'iOS Only', sub: 'Simulator & Device', disabled: hostOS === 'windows' || hostOS === 'linux' },
-              { id: 'both', label: 'Android & iOS', sub: 'Universal App', disabled: hostOS === 'windows' || hostOS === 'linux' },
+              { id: 'android', title: 'Android', sub: 'APK, AAB & NDK' },
+              { id: 'ios', title: 'iOS', sub: 'Simulator & CocoaPods', disabled: hostOS === 'windows' || hostOS === 'linux' },
+              { id: 'both', title: 'Universal', sub: 'Android & iOS Toolchain', disabled: hostOS === 'windows' || hostOS === 'linux', fullWidth: true },
             ].map((plat) => {
               const isSelected = targetPlatform === plat.id;
               return (
@@ -318,20 +324,22 @@ export PATH=$JAVA_HOME/bin:$PATH`,
                   type="button"
                   disabled={plat.disabled}
                   onClick={() => setTargetPlatform(plat.id as TargetPlatform)}
-                  className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between gap-1 ${
+                  className={`min-w-0 p-3.5 break-words rounded-xl border text-left transition-all flex flex-col justify-between gap-1.5 ${
+                    plat.fullWidth ? 'col-span-2' : ''
+                  } ${
                     plat.disabled
-                      ? 'opacity-40 cursor-not-allowed bg-black/40 border-white/5 text-slate-600'
+                      ? 'opacity-40 cursor-not-allowed bg-slate-100 dark:bg-black/40 border-slate-200 dark:border-white/5 text-slate-400 dark:text-slate-600'
                       : isSelected
-                      ? 'bg-cyan-950/60 border-cyan-500/60 text-white shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                      : 'bg-white/5 border-white/10 text-slate-400 hover:text-slate-200 hover:bg-white/[0.08]'
+                      ? 'bg-cyan-50 dark:bg-cyan-950/60 border-cyan-500 text-slate-900 dark:text-white shadow-sm dark:shadow-[0_0_15px_rgba(6,182,212,0.2)] ring-1 ring-cyan-500/40'
+                      : 'bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.08]'
                   }`}
                 >
-                  <span className="text-xs font-bold leading-tight flex items-center justify-between">
-                    {plat.label}
-                    {isSelected && <Check className="w-3.5 h-3.5 text-cyan-400" />}
-                  </span>
-                  <span className="text-[10px] font-mono text-slate-400">
-                    {plat.disabled ? 'Requires macOS' : plat.sub}
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-bold leading-tight text-slate-900 dark:text-white">{plat.title}</span>
+                    {isSelected && <Check className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />}
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                    {plat.disabled ? 'Requires macOS Host' : plat.sub}
                   </span>
                 </button>
               );
@@ -347,7 +355,7 @@ export PATH=$JAVA_HOME/bin:$PATH`,
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="my-5 p-4 rounded-xl bg-black/70 border border-white/15 overflow-hidden font-mono"
+            className="my-5 p-4 rounded-xl bg-slate-950 text-slate-100 border border-slate-800 dark:border-white/15 overflow-hidden font-mono shadow-inner"
           >
             <div className="flex items-center justify-between pb-3 border-b border-white/10 text-xs">
               <div className="flex items-center gap-2">
@@ -376,7 +384,7 @@ export PATH=$JAVA_HOME/bin:$PATH`,
                         : 'bg-white/[0.03] border-white/10'
                     }`}
                   >
-                    <div className="flex items-start gap-2.5">
+                    <div className="flex items-start gap-2.5 min-w-0">
                       {isPending ? (
                         <div className="w-4 h-4 rounded-full border-2 border-slate-600 border-t-transparent animate-spin shrink-0 mt-0.5" />
                       ) : chk.status === 'passed' ? (
@@ -386,14 +394,14 @@ export PATH=$JAVA_HOME/bin:$PATH`,
                       ) : (
                         <XCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                       )}
-                      <div>
-                        <div className="font-semibold text-slate-100 flex items-center gap-2">
+                      <div className="min-w-0">
+                        <div className="font-semibold text-slate-100 flex items-center gap-2 flex-wrap">
                           <span>{chk.name}</span>
-                          <span className="text-[10px] text-slate-400 bg-white/5 px-1.5 py-0.2 rounded">
+                          <span className="text-[10px] text-slate-400 bg-white/5 px-1.5 py-0.2 rounded truncate">
                             {chk.version}
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-0.5">{chk.details}</p>
+                        <p className="text-[11px] text-slate-400 mt-0.5 break-words">{chk.details}</p>
                       </div>
                     </div>
 
@@ -433,7 +441,7 @@ export PATH=$JAVA_HOME/bin:$PATH`,
       {/* Terminal Script Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pt-5 relative z-10">
         {/* Card 1: Toolchain Installation */}
-        <div className="rounded-xl bg-black/60 border border-white/10 p-4 flex flex-col justify-between">
+        <div className="rounded-xl bg-slate-950 text-slate-100 border border-slate-800 dark:border-white/10 p-4 flex flex-col justify-between shadow-md">
           <div className="flex items-center justify-between pb-2 border-b border-white/10">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
               <Terminal className="w-3.5 h-3.5 text-emerald-400" />
@@ -457,7 +465,7 @@ export PATH=$JAVA_HOME/bin:$PATH`,
         </div>
 
         {/* Card 2: Environment Variables */}
-        <div className="rounded-xl bg-black/60 border border-white/10 p-4 flex flex-col justify-between">
+        <div className="rounded-xl bg-slate-950 text-slate-100 border border-slate-800 dark:border-white/10 p-4 flex flex-col justify-between shadow-md">
           <div className="flex items-center justify-between pb-2 border-b border-white/10">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
               <Sparkles className="w-3.5 h-3.5 text-cyan-400" />

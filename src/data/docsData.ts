@@ -907,4 +907,328 @@ end`,
       },
     ],
   },
+  {
+    id: 'git-mastery',
+    title: '7. Git & Version Control Mastery',
+    description: 'Daily feature branch workflows, team rebasing, stashing, emergency recovery, and release tagging.',
+    iconName: 'GitBranch',
+    articles: [
+      {
+        id: 'git-daily-workflow',
+        slug: 'git-daily-workflow',
+        categoryId: 'git-mastery',
+        categoryTitle: 'Git & Version Control Mastery',
+        title: 'Daily Feature Branch Workflow & Remote Collaboration',
+        subtitle: 'The battle-tested Git routine for mobile engineers: branching, clean staging, rebasing, and pushing.',
+        versionBadge: 'Daily Workflow',
+        readTime: '7 min read',
+        toc: [
+          { id: 'git-init-remote', label: '1. Project Init & Remote Setup' },
+          { id: 'git-branching', label: '2. Daily Feature Branch Workflow' },
+          { id: 'git-sync-rebase', label: '3. Syncing & Rebasing with Main' },
+          { id: 'git-stashing', label: '4. Stashing & Context Switching' },
+        ],
+        sections: [
+          {
+            id: 'git-init-remote',
+            heading: '1. Project Init & Remote Setup',
+            body: [
+              'What It Does: Initializes an empty local Git repository and links it to a remote GitHub or GitLab repository.',
+              'When To Use It: When starting a brand-new React Native project or setting up a fresh machine clone via SSH.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Project Setup)',
+              code: `# Initialize a new repository
+git init -b main
+
+# Link to remote GitHub origin
+git remote add origin git@github.com:akashyadavazm/rn-architecture-deep-dives.git
+
+# Verify remote URLs
+git remote -v
+
+# Clone existing repository recursively with submodules
+git clone --recurse-submodules git@github.com:akashyadavazm/rn-architecture-deep-dives.git`,
+              copyableText: 'git remote add origin git@github.com:akashyadavazm/rn-architecture-deep-dives.git',
+            },
+            callout: {
+              type: 'architect',
+              title: 'Architect Tip: Prefer SSH Over HTTPS',
+              text: 'Always configure SSH keys (~/.ssh/id_ed25519) for Git. HTTPS requires personal access tokens that expire and break automated CocoaPods sub-spec fetches or CI runners.',
+            },
+          },
+          {
+            id: 'git-branching',
+            heading: '2. Daily Feature Branch Workflow',
+            body: [
+              'What It Does: Creates an isolated branch for your task, inspects file changes, stages hunks cleanly, and commits with semantic prefixes.',
+              'When To Use It: Every single morning or whenever starting a ticket (e.g. `feat/fabric-shadow-node` or `fix/metro-port-8081`). Never commit directly to `main`!',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Feature Flow)',
+              code: `# 1. Create and switch to a new feature branch
+git checkout -b feat/jsi-crypto-module
+# Modern shorthand alternative:
+git switch -c feat/jsi-crypto-module
+
+# 2. Check file modification status
+git status -sb
+
+# 3. Interactive staging (stage specific hunks instead of blindly adding everything)
+git add -p src/components/BridgeVisualizer.tsx
+
+# 4. Standard atomic commit with Conventional Commits prefix
+git commit -m "feat(jsi): add zero-serialization memory buffer benchmark"
+
+# 5. Push and establish upstream tracking
+git push -u origin feat/jsi-crypto-module`,
+              copyableText: 'git switch -c feat/jsi-crypto-module\ngit status -sb',
+            },
+          },
+          {
+            id: 'git-sync-rebase',
+            heading: '3. Syncing & Rebasing with Main (Team Collaboration)',
+            body: [
+              'What It Does: Fetches the latest commits from teammates and replays your local commits cleanly on top of `origin/main` without generating messy "Merge branch \'main\' into feat" diamond commits.',
+              'When To Use It: Before submitting a Pull Request or whenever `main` moves forward.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Rebase Sync)',
+              code: `# Fetch all remote branches without touching working tree
+git fetch --all --prune
+
+# Rebase your local feature commits on top of the latest main
+git pull --rebase origin main
+
+# If conflicts occur:
+# 1. Edit the conflicted files and resolve markers (<<<<<<< HEAD)
+# 2. Stage resolved files:
+git add <resolved-file>
+# 3. Continue rebase:
+git rebase --continue
+# (Or abort safely if something goes wrong: git rebase --abort)`,
+              copyableText: 'git fetch --all --prune\ngit pull --rebase origin main',
+            },
+          },
+          {
+            id: 'git-stashing',
+            heading: '4. Stashing & Context Switching',
+            body: [
+              'What It Does: Temporarily shelve uncommitted dirty changes (both staged and unstaged) to a lightweight internal stack so you can switch branches cleanly.',
+              'When To Use It: When you are halfway through a feature and your lead asks you to immediately fix a production bug on another branch.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Stash Stack)',
+              code: `# Save working directory with a descriptive note
+git stash push -m "WIP: JSI memory profiler halfway done"
+
+# List all stored stashes
+git stash list
+
+# Switch to fix the hotfix:
+git checkout hotfix/keystore-expiry
+# ... make and commit fix ...
+
+# Return to your feature branch and re-apply stashed work:
+git checkout feat/jsi-crypto-module
+git stash pop`,
+              copyableText: 'git stash push -m "WIP"\ngit stash pop',
+            },
+          },
+        ],
+      },
+      {
+        id: 'git-emergency-recovery',
+        slug: 'git-emergency-recovery',
+        categoryId: 'git-mastery',
+        categoryTitle: 'Git & Version Control Mastery',
+        title: 'Undoing Mistakes & Emergency Recovery',
+        subtitle: 'Life-saving Git recovery techniques: amending commits, soft resets, reflog time-travel, and lease pushes.',
+        versionBadge: 'Emergency Guide',
+        readTime: '8 min read',
+        toc: [
+          { id: 'git-amend', label: '1. Amend Last Commit Message or Files' },
+          { id: 'git-unstage', label: '2. Unstaging Files & Soft Resets' },
+          { id: 'git-reflog', label: '3. Recover Deleted Commits via Reflog' },
+          { id: 'git-force-lease', label: '4. Safe Force Push (--force-with-lease)' },
+        ],
+        sections: [
+          {
+            id: 'git-amend',
+            heading: '1. Amend Last Commit Message or Files',
+            body: [
+              'What It Does: Combines newly staged files into the immediately preceding commit, or edits the commit message without creating a duplicate "oops typo" commit.',
+              'When To Use It: When you committed but realized you forgot to format a file or made a spelling error in the commit message. (Only do this before pushing to shared branches!).',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Amend)',
+              code: `# 1. Staged forgotten file:
+git add src/data/seedData.ts
+
+# 2. Append directly to last commit without changing message:
+git commit --amend --no-edit
+
+# Or edit the message:
+git commit --amend -m "feat(hermes): enable segregated GC heap snapshot"`,
+              copyableText: 'git commit --amend --no-edit',
+            },
+          },
+          {
+            id: 'git-unstage',
+            heading: '2. Unstaging Files & Soft Resets',
+            body: [
+              'What It Does: `git restore --staged` removes files from the staging index while keeping your code intact in your working directory. `git reset --soft HEAD~1` rolls back the last commit into staged changes without losing a single line of work.',
+              'When To Use It: When you accidentally added `.env` or `build/` artifacts, or committed to the wrong branch.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Unstage & Soft Reset)',
+              code: `# Unstage accidentally added sensitive files
+git restore --staged .env
+# Legacy syntax:
+git reset HEAD .env
+
+# Undo the last commit completely, but KEEP all code staged in your editor:
+git reset --soft HEAD~1
+
+# Discard all UNSTAGED modifications in current directory (Careful: Destructive!):
+git restore .`,
+              copyableText: 'git restore --staged .env\ngit reset --soft HEAD~1',
+            },
+            callout: {
+              type: 'warning',
+              title: 'Never Use git reset --hard Unless Certain',
+              text: '`git reset --hard` destroys uncommitted changes forever. If you ever run it by mistake, check `git reflog` immediately to recover previous commit hashes before garbage collection.',
+            },
+          },
+          {
+            id: 'git-reflog',
+            heading: '3. Recover Deleted Commits via Reflog (Time-Travel)',
+            body: [
+              'What It Does: `git reflog` records every single movement of the `HEAD` pointer, including deleted branches, hard resets, and rebase aborts. Commits remain accessible in the reflog for up to 90 days.',
+              'When To Use It: The ultimate panic button: when you accidentally deleted a branch or performed a bad `git reset --hard` and lost your afternoon\'s work.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Reflog Recovery)',
+              code: `# 1. View complete history of every HEAD movement
+git reflog
+# Output:
+# a1b2c3d HEAD@{0}: reset: moving to HEAD~1
+# f4e5d6c HEAD@{1}: commit: feat(fabric): implement shadow tree
+# 890abcd HEAD@{2}: checkout: moving from main to feat/shadow-tree
+
+# 2. Recover the lost commit into a brand-new recovery branch:
+git checkout -b recovery-branch f4e5d6c
+
+# Or cherry-pick the exact commit into your current branch:
+git cherry-pick f4e5d6c`,
+              copyableText: 'git reflog\ngit checkout -b recovery-branch <commit-hash>',
+            },
+          },
+          {
+            id: 'git-force-lease',
+            heading: '4. Safe Force Push with --force-with-lease',
+            body: [
+              'What It Does: Updates the remote feature branch after an interactive rebase, but ONLY if nobody else has pushed commits to that remote branch in the meantime.',
+              'When To Use It: After rebasing your feature branch against `main`. Never use naked `git push -f` or `--force` because it will blindly overwrite teammates\' work.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Safe Force Push)',
+              code: `# Safely update rebased remote branch
+git push --force-with-lease origin feat/jsi-crypto-module
+
+# Pro tip: Set alias in ~/.gitconfig
+# [alias]
+#   pf = push --force-with-lease`,
+              copyableText: 'git push --force-with-lease origin feat/my-branch',
+            },
+          },
+        ],
+      },
+      {
+        id: 'git-release-tagging',
+        slug: 'git-release-tagging',
+        categoryId: 'git-mastery',
+        categoryTitle: 'Git & Version Control Mastery',
+        title: 'React Native Semantic Release Tagging & CI/CD',
+        subtitle: 'Annotated semantic tags, App Store / Play Store milestones, and automated release pipelines.',
+        versionBadge: 'Release Tagging',
+        readTime: '6 min read',
+        toc: [
+          { id: 'git-tag-create', label: '1. Creating Annotated Semantic Tags' },
+          { id: 'git-tag-push', label: '2. Pushing Tags to Trigger CI/CD' },
+          { id: 'git-tag-verify', label: '3. Verifying Clean Tree & Rollback' },
+        ],
+        sections: [
+          {
+            id: 'git-tag-create',
+            heading: '1. Creating Annotated Semantic Release Tags',
+            body: [
+              'What It Does: Attaches a cryptographic, permanent milestone tag to a specific Git commit hash containing the release version, author, timestamp, and release notes.',
+              'When To Use It: Whenever building a release candidate or deploying a binary to Google Play Console or Apple App Store Connect.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Release Tagging)',
+              code: `# 1. Ensure working directory is pristine and on main
+git checkout main
+git pull --rebase origin main
+
+# 2. Create annotated tag following SemVer (Major.Minor.Patch)
+git tag -a v2.4.0 -m "Release v2.4.0: TurboModules Bridgeless Mode & Hermes HBC compilation"
+
+# 3. View tag metadata and author signature
+git show v2.4.0`,
+              copyableText: 'git tag -a v2.4.0 -m "Store Release v2.4.0"',
+            },
+          },
+          {
+            id: 'git-tag-push',
+            heading: '2. Pushing Tags to Trigger Automated CI/CD Builds',
+            body: [
+              'What It Does: Pushes the specific version tag to the remote repository. GitHub Actions, Bitrise, or Fastlane CI runners listen for tag patterns (`v*.*.*`) and automatically compile Android App Bundles (AAB) and iOS IPA archives.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Push Tags)',
+              code: `# Push single specific tag:
+git push origin v2.4.0
+
+# Or push all local tags:
+git push origin --tags
+
+# Delete a tag remotely if published by mistake:
+git push origin --delete v2.4.0
+git tag -d v2.4.0`,
+              copyableText: 'git push origin v2.4.0',
+            },
+          },
+          {
+            id: 'git-tag-verify',
+            heading: '3. Checking Out Release Tags & Rollback Strategy',
+            body: [
+              'What It Does: Allows any developer on your team to check out the exact source code state of any version currently in production to reproduce bugs, examine symbols, or generate hotfixes.',
+            ],
+            codeSnippet: {
+              language: 'bash',
+              filename: 'Terminal (Checkout Tag)',
+              code: `# Check out production tag into detached HEAD
+git checkout tags/v2.4.0
+
+# Branch off from production tag to prepare a critical hotfix:
+git checkout -b hotfix/v2.4.1 tags/v2.4.0`,
+              copyableText: 'git checkout -b hotfix/v2.4.1 tags/v2.4.0',
+            },
+          },
+        ],
+      },
+    ],
+  },
 ];

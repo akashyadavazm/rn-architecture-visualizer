@@ -16,6 +16,7 @@ import { useTopicProgress } from '../lib/progressStore';
 import { useAuth } from '../lib/authStore';
 import { GlobalSearch } from './GlobalSearch';
 import { AuthModal } from './AuthModal';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -47,40 +48,40 @@ export const Navbar: React.FC = () => {
       {/* Outer Floating Wrapper (Relative anchor for mobile sibling dropdown) */}
       <div className="sticky top-4 z-50 px-4 sm:px-6 lg:px-8 w-full pointer-events-none relative">
         {/* Sleek Pill Header Bar - max-w-7xl, overflow-visible, strictly non-overflowing */}
-        <header className="pointer-events-auto h-16 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-full mx-auto max-w-7xl px-4 lg:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between gap-2 overflow-visible transition-all">
+        <header className="pointer-events-auto h-16 bg-white/90 dark:bg-[#0a0a0a]/80 backdrop-blur-xl border border-slate-200/90 dark:border-white/10 rounded-full mx-auto max-w-7xl px-3 sm:px-5 lg:px-6 shadow-[0_8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between gap-1.5 sm:gap-2 overflow-visible transition-colors duration-150">
           {/* Far Left: Logo */}
           <Link
             to="/"
-            className="group flex items-center gap-2 text-sm sm:text-base font-bold tracking-tight text-white whitespace-nowrap shrink-0"
+            className="group flex items-center gap-2 text-sm sm:text-base font-bold tracking-tight text-slate-900 dark:text-white whitespace-nowrap shrink-0"
           >
-            <div className="w-8 h-8 rounded-full bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:border-emerald-400 group-hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] transition-all">
-              <Terminal className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-950/80 border border-emerald-500/30 dark:border-emerald-500/40 flex items-center justify-center text-emerald-600 dark:text-emerald-400 group-hover:border-emerald-500 group-hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] transition-all">
+              <Terminal className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             </div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold tracking-tight">RN Architect</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950/70 text-cyan-400 border border-cyan-800/50 hidden 2xl:inline-block">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-950/70 text-cyan-700 dark:text-cyan-400 border border-cyan-300 dark:border-cyan-800/50 hidden 2xl:inline-block">
                 8 Stages
               </span>
             </div>
           </Link>
 
           {/* Center: Clean Tight Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-medium text-slate-300">
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs xl:text-sm font-medium text-slate-600 dark:text-slate-300">
             {navLinks.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className={`transition-colors whitespace-nowrap relative px-2 py-1 xl:px-2.5 rounded-lg hover:text-white ${
+                className={`transition-colors whitespace-nowrap relative px-2 py-1 xl:px-2.5 rounded-lg hover:text-slate-900 dark:hover:text-white ${
                   isActive(item.href)
-                    ? 'text-emerald-400 font-semibold'
-                    : 'text-slate-300'
+                    ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
+                    : 'text-slate-600 dark:text-slate-300'
                 }`}
               >
                 {item.label}
                 {isActive(item.href) && (
                   <motion.div
                     layoutId="activeNavPill"
-                    className="absolute -bottom-1 left-2 right-2 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full"
+                    className="absolute -bottom-1 left-2 right-2 h-0.5 bg-gradient-to-r from-emerald-500 to-cyan-500 dark:from-emerald-400 dark:to-cyan-400 rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -88,60 +89,63 @@ export const Navbar: React.FC = () => {
             ))}
           </nav>
 
-          {/* Far Right: Search, Role Badge & Trigger */}
-          <div className="flex items-center gap-2 shrink-0">
+          {/* Far Right: Search, Theme Switcher, Role Badge & Trigger */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             {/* Embedded Search Trigger - Compact to prevent pushing items */}
-            <div className="w-32 xl:w-40 hidden md:block shrink">
+            <div className="w-28 sm:w-36 xl:w-40 hidden md:block shrink">
               <GlobalSearch />
             </div>
 
             {/* Personal Learner Progress Badge */}
             <Link
               to="/#roadmap"
-              className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-emerald-500/40 transition-colors text-xs font-mono shrink-0"
+              className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 transition-colors text-xs font-mono shrink-0"
               title={`${masteredCount} of ${totalTopics} stages mastered`}
             >
               <CheckCircle2
                 className={`w-3.5 h-3.5 ${
-                  masteredCount > 0 ? 'text-emerald-400' : 'text-slate-500'
+                  masteredCount > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'
                 }`}
               />
-              <span className="text-slate-200">
-                <span className="text-emerald-400 font-bold">{masteredCount}</span>
-                <span className="text-slate-500">/{totalTopics}</span>
+              <span className="text-slate-700 dark:text-slate-200">
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{masteredCount}</span>
+                <span className="text-slate-400 dark:text-slate-500">/{totalTopics}</span>
               </span>
-              <div className="w-6 h-1 bg-white/10 rounded-full overflow-hidden hidden 2xl:block">
+              <div className="w-6 h-1 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden hidden 2xl:block">
                 <div
-                  className="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-cyan-500 to-emerald-500 transition-all duration-500"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
             </Link>
 
+            {/* Desktop Theme Switcher */}
+            <ThemeSwitcher variant="compact" className="hidden sm:block" />
+
             {/* Role Switcher Pill (Admin vs Student) - strictly constrained to prevent horizontal overflow */}
             <button
               type="button"
               onClick={() => setAuthModalOpen(true)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-full border transition-all active:scale-95 shrink-0 max-w-[130px] sm:max-w-[160px] ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-full border transition-all active:scale-95 shrink-0 max-w-[125px] sm:max-w-[155px] ${
                 isAdmin
-                  ? 'bg-emerald-950/80 border-emerald-500/50 text-emerald-400 hover:shadow-[0_0_15px_rgba(52,211,153,0.3)]'
-                  : 'bg-cyan-950/80 border-cyan-500/50 text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-500/50 text-emerald-700 dark:text-emerald-400 hover:shadow-[0_0_15px_rgba(52,211,153,0.2)]'
+                  : 'bg-cyan-50 dark:bg-cyan-950/80 border-cyan-300 dark:border-cyan-500/50 text-cyan-700 dark:text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]'
               }`}
               title="Click to switch role or view credentials"
             >
               {isAdmin ? (
                 <>
-                  <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <Shield className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span className="font-bold">Admin</span>
-                  <span className="text-[10px] text-emerald-400/80 truncate hidden sm:inline max-w-[70px]">
+                  <span className="text-[10px] text-emerald-600/80 dark:text-emerald-400/80 truncate hidden sm:inline max-w-[65px]">
                     {currentUser.email.split('@')[0]}
                   </span>
                 </>
               ) : (
                 <>
-                  <GraduationCap className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                  <GraduationCap className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 shrink-0" />
                   <span className="font-bold">Learner</span>
-                  <span className="text-[10px] text-cyan-400/80 truncate hidden sm:inline">
+                  <span className="text-[10px] text-cyan-600/80 dark:text-cyan-400/80 truncate hidden sm:inline">
                     intern
                   </span>
                 </>
@@ -154,7 +158,7 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-slate-300 hover:text-white rounded-full bg-white/5 border border-white/10 focus:outline-none"
+                className="p-2 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:outline-none"
                 aria-label="Toggle navigation menu"
               >
                 {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -175,7 +179,7 @@ export const Navbar: React.FC = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -12, scale: 0.96 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:hidden pointer-events-auto absolute top-20 left-4 right-4 bg-[#0d0d0d]/95 backdrop-blur-2xl border border-white/15 rounded-2xl p-6 shadow-2xl z-50 space-y-4 max-w-7xl mx-auto"
+              className="lg:hidden pointer-events-auto absolute top-20 left-4 right-4 bg-white/95 dark:bg-[#0d0d0d]/95 backdrop-blur-2xl border border-slate-200 dark:border-white/15 rounded-2xl p-5 shadow-2xl z-50 space-y-4 max-w-7xl mx-auto text-slate-900 dark:text-white"
             >
               {/* Mobile Search */}
               <div className="pb-1">
@@ -183,9 +187,9 @@ export const Navbar: React.FC = () => {
               </div>
 
               {/* Progress and Role Header */}
-              <div className="flex items-center justify-between py-2 border-b border-white/10 text-xs font-mono">
-                <span className="text-slate-400">Roadmap Progress:</span>
-                <span className="text-emerald-400 font-bold">{masteredCount} / {totalTopics} Mastered</span>
+              <div className="flex items-center justify-between py-2 border-b border-slate-200 dark:border-white/10 text-xs font-mono">
+                <span className="text-slate-500 dark:text-slate-400">Roadmap Progress:</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-bold">{masteredCount} / {totalTopics} Mastered</span>
               </div>
 
               {/* Navigation Links */}
@@ -195,10 +199,10 @@ export const Navbar: React.FC = () => {
                     key={item.href}
                     to={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`block py-2 text-sm font-medium rounded-lg px-2 transition-colors ${
+                    className={`block py-2 text-sm font-medium rounded-lg px-2.5 transition-colors ${
                       isActive(item.href)
-                        ? 'text-emerald-400 bg-white/5 font-semibold'
-                        : 'text-slate-300 hover:text-white hover:bg-white/[0.03]'
+                        ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-white/5 font-semibold'
+                        : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.03]'
                     }`}
                   >
                     {item.label}
@@ -206,8 +210,16 @@ export const Navbar: React.FC = () => {
                 ))}
               </div>
 
+              {/* Mobile Theme Switcher Section */}
+              <div className="pt-3 border-t border-slate-200 dark:border-white/10 space-y-2">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  Color Theme
+                </div>
+                <ThemeSwitcher variant="segmented" />
+              </div>
+
               {/* Quick Role Switcher Button */}
-              <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
+              <div className="pt-2 border-t border-slate-200 dark:border-white/10 flex flex-col gap-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -216,8 +228,8 @@ export const Navbar: React.FC = () => {
                   }}
                   className={`w-full py-2.5 px-4 rounded-xl text-xs font-mono font-bold flex items-center justify-center gap-2 border ${
                     isAdmin
-                      ? 'bg-emerald-950/80 border-emerald-500/50 text-emerald-400'
-                      : 'bg-cyan-950/80 border-cyan-500/50 text-cyan-400'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-500/50 text-emerald-700 dark:text-emerald-400'
+                      : 'bg-cyan-50 dark:bg-cyan-950/80 border-cyan-300 dark:border-cyan-500/50 text-cyan-700 dark:text-cyan-400'
                   }`}
                 >
                   {isAdmin ? <Shield className="w-4 h-4" /> : <GraduationCap className="w-4 h-4" />}

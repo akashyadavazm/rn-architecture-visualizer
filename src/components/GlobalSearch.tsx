@@ -231,14 +231,14 @@ export const GlobalSearch: React.FC = () => {
       {/* Search Input Trigger */}
       <div
         onClick={() => setIsOpen(true)}
-        className="relative flex items-center w-full h-9 px-3 rounded-lg bg-black/60 border border-white/10 hover:border-white/20 transition-all cursor-pointer group"
+        className="relative flex items-center w-full h-9 px-3 rounded-lg bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-white/20 transition-all cursor-pointer group shadow-2xs"
       >
-        <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors shrink-0" />
-        <span className="text-xs text-slate-400 ml-2.5 truncate font-sans">
-          {query ? query : 'Search topics, JSI, worklets...'}
+        <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
+        <span className="text-xs text-slate-500 dark:text-slate-400 ml-2.5 truncate font-sans">
+          {query ? query : 'Search topics, JSI, Git...'}
         </span>
         <div className="ml-auto flex items-center gap-1 shrink-0">
-          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-white/10 rounded">
+          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200/80 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded">
             ⌘K
           </kbd>
         </div>
@@ -252,25 +252,25 @@ export const GlobalSearch: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.98 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-0 sm:left-auto sm:right-0 top-11 w-[92vw] sm:w-[480px] max-w-[96vw] bg-[#0c0c0c] border border-white/15 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.85)] z-50 overflow-hidden"
+            className="absolute left-0 sm:left-auto sm:right-0 top-11 w-[92vw] sm:w-[480px] max-w-[96vw] bg-white dark:bg-[#0c0c0c] text-slate-900 dark:text-white border border-slate-200 dark:border-white/15 rounded-2xl shadow-2xl z-50 overflow-hidden"
           >
             {/* Active Search Header inside Dropdown */}
-            <div className="p-3 bg-black/70 border-b border-white/10 flex items-center gap-2.5">
-              <Search className="w-4 h-4 text-emerald-400 shrink-0" />
+            <div className="p-3 bg-slate-50 dark:bg-black/70 border-b border-slate-200 dark:border-white/10 flex items-center gap-2.5">
+              <Search className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleInputKeyDown}
-                placeholder="Search topics, modules, C++, JSI, Swift..."
-                className="w-full bg-transparent text-xs sm:text-sm text-white placeholder-slate-500 font-sans focus:outline-none"
+                placeholder="Search topics, modules, C++, JSI, Swift, Git..."
+                className="w-full bg-transparent text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 font-sans focus:outline-none"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="p-1 text-slate-400 hover:text-white rounded"
+                  className="p-1 text-slate-400 hover:text-slate-700 dark:hover:text-white rounded"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>

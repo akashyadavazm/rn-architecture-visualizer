@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider } from './lib/themeContext';
 import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { TopicDetail } from './pages/TopicDetail';
@@ -9,9 +10,10 @@ import { Admin } from './pages/Admin';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/docs" element={<DeveloperDocs />} />
           <Route path="/topic/:slug" element={<TopicDetail />} />
@@ -23,5 +25,6 @@ export default function App() {
         </Routes>
       </Layout>
     </BrowserRouter>
-  );
+  </ThemeProvider>
+);
 }
