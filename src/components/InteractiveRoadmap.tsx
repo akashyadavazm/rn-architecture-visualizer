@@ -105,25 +105,25 @@ export const InteractiveRoadmap: React.FC<InteractiveRoadmapProps> = ({ modules 
               transition={{ layout: { duration: 0.3, type: 'spring', damping: 25, stiffness: 300 } }}
               className={`relative z-10 rounded-2xl border transition-all overflow-hidden ${
                 isExpanded
-                  ? 'border-[#00ff88]/40 bg-[#0d0d0d] shadow-[0_0_30px_rgba(0,255,136,0.12)]'
-                  : 'border-white/10 bg-[#0a0a0a]/80 hover:border-white/20 hover:bg-[#0f0f0f]'
+                  ? 'border-emerald-500/40 bg-white/5 shadow-[0_0_30px_rgba(52,211,153,0.15)]'
+                  : 'border-white/10 bg-white/[0.03] hover:border-emerald-500/30 hover:bg-white/5'
               }`}
             >
               {/* Stage Header Button (Interactive Node) */}
               <button
                 type="button"
                 onClick={() => setExpandedStage(isExpanded ? 0 : module.stage_number)}
-                className="w-full text-left p-5 sm:p-6 flex items-start sm:items-center justify-between gap-4 focus:outline-none"
+                className="w-full text-left p-6 sm:p-8 flex items-start sm:items-center justify-between gap-6 focus:outline-none"
               >
-                <div className="flex items-start sm:items-center gap-4">
+                <div className="flex items-start sm:items-center gap-5">
                   {/* Node Icon Circle */}
                   <div
                     className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border transition-all ${
                       isExpanded
-                        ? 'bg-slate-900 border-[#00ff88] shadow-[0_0_15px_rgba(0,255,136,0.4)]'
+                        ? 'bg-black/80 border-emerald-400 shadow-[0_0_15px_rgba(52,211,153,0.3)]'
                         : isAllMastered
                         ? 'bg-emerald-950/60 border-emerald-500'
-                        : 'bg-black/60 border-white/10'
+                        : 'bg-black/50 border-white/10'
                     }`}
                   >
                     {getStageIcon(module.stage_number)}
@@ -182,10 +182,10 @@ export const InteractiveRoadmap: React.FC<InteractiveRoadmapProps> = ({ modules 
                         return (
                           <div
                             key={topic.id}
-                            className={`p-4 rounded-xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                            className={`p-5 rounded-xl border transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                               mastered
-                                ? 'border-emerald-500/40 bg-emerald-950/10'
-                                : 'border-white/10 bg-[#0d0d0d] hover:border-[#00ff88]/30 hover:bg-[#121212]'
+                                ? 'border-emerald-500/40 bg-emerald-950/20'
+                                : 'border-white/10 bg-black/60 hover:border-emerald-500/30 hover:bg-black/80'
                             }`}
                           >
                             <div className="space-y-2 max-w-2xl">
@@ -199,7 +199,7 @@ export const InteractiveRoadmap: React.FC<InteractiveRoadmapProps> = ({ modules 
                                 {mastered && (
                                   <>
                                     <span className="text-slate-600 text-xs">·</span>
-                                    <span className="text-xs font-mono text-[#00ff88] flex items-center gap-1 font-semibold">
+                                    <span className="text-xs font-mono text-emerald-400 flex items-center gap-1 font-semibold">
                                       <CheckCircle2 className="w-3.5 h-3.5" />
                                       <span>Mastered</span>
                                     </span>
@@ -208,7 +208,7 @@ export const InteractiveRoadmap: React.FC<InteractiveRoadmapProps> = ({ modules 
                               </div>
 
                               <Link to={`/topic/${topic.slug}`} className="block group">
-                                <h4 className="text-base font-bold text-white group-hover:text-[#00ff88] transition-colors">
+                                <h4 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
                                   {topic.title}
                                 </h4>
                               </Link>
@@ -221,7 +221,7 @@ export const InteractiveRoadmap: React.FC<InteractiveRoadmapProps> = ({ modules 
                             <div className="shrink-0 self-end sm:self-center">
                               <Link
                                 to={`/topic/${topic.slug}`}
-                                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-[#00ff88] hover:bg-[#33ff9f] active:bg-[#00cc6a] rounded-lg shadow-[0_0_15px_rgba(0,255,136,0.3)] transition-all whitespace-nowrap"
+                                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-mono font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:shadow-[0_0_20px_rgba(52,211,153,0.35)] active:scale-95 rounded-lg transition-all whitespace-nowrap"
                               >
                                 <span>Launch Deep Dive</span>
                                 <ArrowRight className="w-3.5 h-3.5" />

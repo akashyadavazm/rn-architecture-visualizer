@@ -98,9 +98,9 @@ export const BridgeVisualizer: React.FC = () => {
   };
 
   return (
-    <div className="border border-white/10 bg-[#0d0d0d] rounded-2xl p-5 sm:p-7 space-y-6 shadow-2xl relative overflow-hidden">
+    <div className="bg-white/5 border border-white/10 rounded-2xl p-6 sm:p-8 hover:border-emerald-500/30 transition-colors shadow-2xl relative overflow-hidden space-y-8">
       {/* Background cyber grid effect */}
-      <div className="absolute inset-0 bg-[radial-gradient(#00ff8812_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 bg-[radial-gradient(#34d39915_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none opacity-40" />
 
       {/* Header & Mode Switcher */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-5">
