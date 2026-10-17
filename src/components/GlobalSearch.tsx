@@ -190,7 +190,7 @@ export const GlobalSearch: React.FC = () => {
     }
     switch (item.stageNumber) {
       case 1:
-        return <Cpu className="w-4 h-4 text-[#00ff88]" />;
+        return <Cpu className="w-4 h-4 text-emerald-400" />;
       case 2:
         return <Zap className="w-4 h-4 text-[#00ccff]" />;
       case 3:
@@ -198,7 +198,7 @@ export const GlobalSearch: React.FC = () => {
       case 4:
         return <ShieldCheck className="w-4 h-4 text-purple-400" />;
       default:
-        return <Cpu className="w-4 h-4 text-[#00ff88]" />;
+        return <Cpu className="w-4 h-4 text-emerald-400" />;
     }
   };
 
@@ -211,7 +211,7 @@ export const GlobalSearch: React.FC = () => {
         onClick={() => setIsOpen(true)}
         className="relative flex items-center w-full h-9 px-3 rounded-lg bg-black/60 border border-white/10 hover:border-white/20 transition-all cursor-pointer group"
       >
-        <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-[#00ff88] transition-colors shrink-0" />
+        <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-400 transition-colors shrink-0" />
         <span className="text-xs text-slate-400 ml-2.5 truncate font-sans">
           {query ? query : 'Search topics, JSI, worklets...'}
         </span>
@@ -234,7 +234,7 @@ export const GlobalSearch: React.FC = () => {
           >
             {/* Active Search Header inside Dropdown */}
             <div className="p-3 bg-black/70 border-b border-white/10 flex items-center gap-2.5">
-              <Search className="w-4 h-4 text-[#00ff88] shrink-0" />
+              <Search className="w-4 h-4 text-emerald-400 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -261,7 +261,7 @@ export const GlobalSearch: React.FC = () => {
                 /* Empty state: Show Suggested Topics & Roadmap Shortcuts */
                 <div className="p-4 space-y-4">
                   <div className="flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold">
-                    <Sparkles className="w-3.5 h-3.5 text-[#00ff88]" />
+                    <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Popular Architecture Searches</span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -270,7 +270,7 @@ export const GlobalSearch: React.FC = () => {
                         key={kw}
                         type="button"
                         onClick={() => setQuery(kw)}
-                        className="px-2.5 py-1 text-xs font-mono rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-[#00ff88] transition-colors"
+                        className="px-2.5 py-1 text-xs font-mono rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-emerald-400 transition-colors"
                       >
                         {kw}
                       </button>
@@ -329,7 +329,7 @@ export const GlobalSearch: React.FC = () => {
                           <div className="flex items-center gap-2">
                             <h4
                               className={`text-xs sm:text-sm font-bold truncate ${
-                                isSelected ? 'text-[#00ff88]' : 'text-white'
+                                isSelected ? 'text-emerald-400' : 'text-white'
                               }`}
                             >
                               {item.title}

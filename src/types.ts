@@ -1,5 +1,21 @@
 export type DifficultyLevel = 'Beginner' | 'Intermediate' | 'Architect';
 
+export type TrackType =
+  | 'Intern & Foundations'
+  | 'Production Engineering'
+  | 'Core Internals & JSI'
+  | 'Native & Store Release';
+
+export type UserRole = 'admin' | 'student';
+
+export interface CurrentUser {
+  id: string;
+  email: string;
+  full_name: string;
+  role: UserRole;
+  isDemo?: boolean;
+}
+
 export interface Profile {
   id: string;
   email: string | null;
@@ -26,7 +42,8 @@ export interface Post {
 
 export interface Module {
   id: string;
-  stage_number: number; // 1 to 4
+  stage_number: number; // 1 to 8
+  track: TrackType;
   title: string;
   description: string;
   icon_name: string;
@@ -38,6 +55,8 @@ export type ContentBlockType =
   | 'text'
   | 'code_comparison'
   | 'bridge_visualizer'
+  | 'responsive_simulator'
+  | 'flatlist_recycler_visualizer'
   | 'callout'
   | 'diagram_explainer';
 
@@ -58,14 +77,25 @@ export interface ContentBlock {
   calloutType?: 'warning' | 'architect_tip' | 'benchmark';
 }
 
+export interface ProductionBugScenario {
+  scenario: string;
+  root_cause: string;
+  fix: string;
+  fix_code?: string;
+}
+
 export interface Topic {
   id: string;
   module_id: string;
+  stage_number?: number;
+  track: TrackType;
   title: string;
   slug: string;
   difficulty: DifficultyLevel;
   tldr_brief: string;
   read_time_minutes: number;
+  intern_checklist?: string[];
+  production_bug?: ProductionBugScenario;
   content_blocks: ContentBlock[];
   is_published: boolean;
   created_at: string;
