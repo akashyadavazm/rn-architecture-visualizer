@@ -29,9 +29,10 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { label: 'Roadmap', href: '/#roadmap' },
+    { label: 'Developer Docs', href: '/docs' },
     { label: 'JSI Simulator', href: '/topic/old-bridge-vs-new-architecture-jsi' },
     { label: 'Responsive Studio', href: '/topic/flexbox-responsive-dimension-scaling' },
-    { label: 'Supabase Schema', href: '/sql-schema' },
+    { label: 'SQL Schema', href: '/sql-schema' },
     { label: 'Admin CMS', href: '/admin' },
   ];
 
@@ -45,41 +46,41 @@ export const Navbar: React.FC = () => {
     <>
       {/* Outer Floating Wrapper (Relative anchor for mobile sibling dropdown) */}
       <div className="sticky top-4 z-50 px-4 sm:px-6 lg:px-8 w-full pointer-events-none relative">
-        {/* Sleek Pill Header Bar - Fixed Height to prevent oval deformation */}
-        <header className="pointer-events-auto h-16 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-full mx-auto max-w-7xl px-5 sm:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between gap-3 sm:gap-4 transition-all">
+        {/* Sleek Pill Header Bar - max-w-7xl, overflow-visible, strictly non-overflowing */}
+        <header className="pointer-events-auto h-16 bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-full mx-auto max-w-7xl px-4 lg:px-6 shadow-[0_8px_32px_rgba(0,0,0,0.5)] flex items-center justify-between gap-2 overflow-visible transition-all">
           {/* Far Left: Logo */}
           <Link
             to="/"
-            className="group flex items-center gap-2.5 text-sm sm:text-base font-bold tracking-tight text-white whitespace-nowrap shrink-0"
+            className="group flex items-center gap-2 text-sm sm:text-base font-bold tracking-tight text-white whitespace-nowrap shrink-0"
           >
             <div className="w-8 h-8 rounded-full bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:border-emerald-400 group-hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] transition-all">
               <Terminal className="w-4 h-4 text-emerald-400" />
             </div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold tracking-tight">RN Architect</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950/70 text-cyan-400 border border-cyan-800/50 hidden lg:inline-block">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-950/70 text-cyan-400 border border-cyan-800/50 hidden 2xl:inline-block">
                 8 Stages
               </span>
             </div>
           </Link>
 
-          {/* Center: Clean Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs sm:text-sm font-medium text-slate-300">
+          {/* Center: Clean Tight Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs xl:text-sm font-medium text-slate-300">
             {navLinks.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
-                className={`transition-colors whitespace-nowrap relative py-1 ${
+                className={`transition-colors whitespace-nowrap relative px-2 py-1 xl:px-2.5 rounded-lg hover:text-white ${
                   isActive(item.href)
                     ? 'text-emerald-400 font-semibold'
-                    : 'hover:text-white'
+                    : 'text-slate-300'
                 }`}
               >
                 {item.label}
                 {isActive(item.href) && (
                   <motion.div
                     layoutId="activeNavPill"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full"
+                    className="absolute -bottom-1 left-2 right-2 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -88,16 +89,16 @@ export const Navbar: React.FC = () => {
           </nav>
 
           {/* Far Right: Search, Role Badge & Trigger */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            {/* Embedded Search Trigger */}
-            <div className="w-32 sm:w-44 lg:w-48 hidden md:block">
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Embedded Search Trigger - Compact to prevent pushing items */}
+            <div className="w-32 xl:w-40 hidden md:block shrink">
               <GlobalSearch />
             </div>
 
             {/* Personal Learner Progress Badge */}
             <Link
               to="/#roadmap"
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-emerald-500/40 transition-colors text-xs font-mono"
+              className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-emerald-500/40 transition-colors text-xs font-mono shrink-0"
               title={`${masteredCount} of ${totalTopics} stages mastered`}
             >
               <CheckCircle2
@@ -109,7 +110,7 @@ export const Navbar: React.FC = () => {
                 <span className="text-emerald-400 font-bold">{masteredCount}</span>
                 <span className="text-slate-500">/{totalTopics}</span>
               </span>
-              <div className="w-8 h-1 bg-white/10 rounded-full overflow-hidden hidden xl:block">
+              <div className="w-6 h-1 bg-white/10 rounded-full overflow-hidden hidden 2xl:block">
                 <div
                   className="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-500"
                   style={{ width: `${progressPercentage}%` }}
@@ -117,11 +118,11 @@ export const Navbar: React.FC = () => {
               </div>
             </Link>
 
-            {/* Role Switcher Pill (Admin vs Student) */}
+            {/* Role Switcher Pill (Admin vs Student) - strictly constrained to prevent horizontal overflow */}
             <button
               type="button"
               onClick={() => setAuthModalOpen(true)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono rounded-full border transition-all active:scale-95 ${
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-mono rounded-full border transition-all active:scale-95 shrink-0 max-w-[130px] sm:max-w-[160px] ${
                 isAdmin
                   ? 'bg-emerald-950/80 border-emerald-500/50 text-emerald-400 hover:shadow-[0_0_15px_rgba(52,211,153,0.3)]'
                   : 'bg-cyan-950/80 border-cyan-500/50 text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]'
@@ -131,14 +132,18 @@ export const Navbar: React.FC = () => {
               {isAdmin ? (
                 <>
                   <Shield className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="font-bold hidden xl:inline">Admin:</span>
-                  <span className="truncate max-w-[120px] sm:max-w-none">{currentUser.email.split('@')[0]}</span>
+                  <span className="font-bold">Admin</span>
+                  <span className="text-[10px] text-emerald-400/80 truncate hidden sm:inline max-w-[70px]">
+                    {currentUser.email.split('@')[0]}
+                  </span>
                 </>
               ) : (
                 <>
                   <GraduationCap className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span className="font-bold hidden xl:inline">Learner:</span>
-                  <span className="truncate max-w-[120px] sm:max-w-none">intern</span>
+                  <span className="font-bold">Learner</span>
+                  <span className="text-[10px] text-cyan-400/80 truncate hidden sm:inline">
+                    intern
+                  </span>
                 </>
               )}
               <ChevronDown className="w-3 h-3 text-slate-400 shrink-0" />

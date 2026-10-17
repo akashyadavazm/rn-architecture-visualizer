@@ -9,6 +9,7 @@ import {
   Sparkles,
   Layers,
   Cpu,
+  Terminal,
 } from 'lucide-react';
 import { Module } from '../types';
 import { SEED_MODULES } from '../data/seedRoadmap';
@@ -69,7 +70,7 @@ export const Home: React.FC = () => {
           <div className="space-y-6 lg:space-y-8">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-semibold shadow-[0_0_15px_rgba(52,211,153,0.15)]">
               <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Stages 1–4 · Senior Mobile Architecture</span>
+              <span>8 Stages · 4 Career Tracks · Official Docs & CLI Matrix</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
@@ -84,21 +85,29 @@ export const Home: React.FC = () => {
             </p>
 
             {/* Flexbox row for CTAs */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
                 href="#roadmap"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-xs sm:text-sm font-mono font-bold tracking-wide text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:shadow-[0_0_30px_rgba(52,211,153,0.35)] active:scale-95 transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold tracking-wide text-slate-950 bg-gradient-to-r from-emerald-400 to-cyan-400 hover:shadow-[0_0_30px_rgba(52,211,153,0.35)] active:scale-95 transition-all"
               >
-                <span>Start Here Roadmap</span>
+                <span>Curriculum Roadmap</span>
                 <ArrowRight className="w-4 h-4" />
               </a>
 
               <Link
+                to="/docs"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs sm:text-sm font-mono font-bold text-white border border-emerald-500/40 bg-emerald-950/50 hover:bg-emerald-900/60 transition-all active:scale-95 shadow-[0_0_20px_rgba(52,211,153,0.2)]"
+              >
+                <Terminal className="w-4 h-4 text-emerald-400" />
+                <span>Developer Docs & CLI Hub</span>
+              </Link>
+
+              <Link
                 to="/topic/old-bridge-vs-new-architecture-jsi"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-xs sm:text-sm font-mono font-semibold text-slate-200 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-emerald-500/30 transition-all active:scale-95"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-full text-xs sm:text-sm font-mono font-semibold text-slate-300 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-cyan-500/30 transition-all active:scale-95"
               >
                 <Zap className="w-4 h-4 text-cyan-400" />
-                <span>Launch JSI Simulator</span>
+                <span>JSI Simulator</span>
               </Link>
             </div>
           </div>

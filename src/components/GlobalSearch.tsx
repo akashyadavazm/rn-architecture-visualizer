@@ -17,11 +17,12 @@ import {
 } from 'lucide-react';
 import { SEED_MODULES } from '../data/seedRoadmap';
 import { INITIAL_SEED_POSTS } from '../data/seedData';
+import { DOCS_CATEGORIES } from '../data/docsData';
 import { Topic, Module } from '../types';
 
 interface SearchResultItem {
   id: string;
-  type: 'topic' | 'module' | 'deep_dive';
+  type: 'topic' | 'module' | 'deep_dive' | 'doc';
   title: string;
   subtitle: string;
   slug?: string;
@@ -130,6 +131,22 @@ export const GlobalSearch: React.FC = () => {
     });
   });
 
+  // 4. Developer Docs & CLI Integration Articles
+  DOCS_CATEGORIES.forEach((cat) => {
+    cat.articles.forEach((art) => {
+      const sectionText = art.sections.map((s) => `${s.heading} ${s.body.join(' ')}`).join(' ');
+      allResults.push({
+        id: `doc-${art.id}`,
+        type: 'doc',
+        title: art.title,
+        subtitle: `${cat.title} • ${art.subtitle}`,
+        slug: art.slug,
+        difficulty: 'Doc',
+        highlightMatch: sectionText,
+      });
+    });
+  });
+
   // Filter based on query
   const cleanQuery = query.trim().toLowerCase();
   const filteredResults = cleanQuery
@@ -176,6 +193,8 @@ export const GlobalSearch: React.FC = () => {
       navigate('/#roadmap');
     } else if (item.type === 'topic') {
       navigate(`/topic/${item.slug}`);
+    } else if (item.type === 'doc') {
+      navigate(`/docs?topic=${item.slug}`);
     } else {
       navigate(`/post/${item.slug}`);
     }
@@ -184,6 +203,9 @@ export const GlobalSearch: React.FC = () => {
   const getResultIcon = (item: SearchResultItem) => {
     if (item.type === 'module') {
       return <Layers className="w-4 h-4 text-[#00ccff]" />;
+    }
+    if (item.type === 'doc') {
+      return <Sparkles className="w-4 h-4 text-emerald-400" />;
     }
     if (item.type === 'deep_dive') {
       return <FileCode className="w-4 h-4 text-purple-400" />;
