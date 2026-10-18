@@ -10,17 +10,17 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-500 dark:selection:text-emerald-300 transition-colors duration-150">
-      {/* Floating Navbar */}
+      {/* Vercel / Next.js Docs Two-Tier Sticky Header */}
       <Navbar />
 
-      {/* Main Container strictly constrained to max-w-7xl with generous breathing room */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14">
+      {/* Main Container strictly constrained to max-w-7xl mx-auto px-6 with generous top/bottom padding */}
+      <main className="flex-1 w-full max-w-7xl mx-auto px-6 py-10 sm:py-16">
         {children}
       </main>
 
-      {/* Cyber-Architect Footer constrained to max-w-7xl */}
+      {/* Cyber-Architect Footer constrained to max-w-7xl px-6 */}
       <footer className="border-t border-slate-200 dark:border-white/10 bg-white dark:bg-[#050505] py-14 text-slate-600 dark:text-slate-400 text-xs font-mono mt-auto transition-colors duration-150">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div className="space-y-2">
             <p className="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
@@ -57,7 +57,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-8 pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between text-slate-500 dark:text-slate-600 gap-4 text-[11px]">
+        <div className="max-w-7xl mx-auto px-6 w-full mt-8 pt-8 border-t border-slate-200 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between text-slate-500 dark:text-slate-600 gap-4 text-[11px]">
           <span>Engine Pipeline: JSI · Hermes AOT · Fabric Shadow Nodes · Reanimated 3</span>
           <span>Lead: akashyadavazm@gmail.com</span>
         </div>

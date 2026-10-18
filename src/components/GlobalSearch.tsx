@@ -32,7 +32,17 @@ interface SearchResultItem {
   highlightMatch?: string;
 }
 
-export const GlobalSearch: React.FC = () => {
+interface GlobalSearchProps {
+  variant?: 'default' | 'compact' | 'wide';
+  className?: string;
+  placeholder?: string;
+}
+
+export const GlobalSearch: React.FC<GlobalSearchProps> = ({
+  variant = 'default',
+  className = '',
+  placeholder,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -227,22 +237,63 @@ export const GlobalSearch: React.FC = () => {
   const suggestedKeywords = ['JSI', 'Worklets', 'Hermes GC', 'TurboModules', 'Socket.IO', 'Codegen', 'Swift'];
 
   return (
-    <div ref={searchContainerRef} className="relative w-full max-w-xs md:max-w-sm">
+    <div
+      ref={searchContainerRef}
+      className={`relative ${
+        variant === 'compact' ? 'w-auto shrink-0' : 'w-full max-w-xs md:max-w-sm'
+      } ${className}`}
+    >
       {/* Search Input Trigger */}
-      <div
-        onClick={() => setIsOpen(true)}
-        className="relative flex items-center w-full h-9 px-3 rounded-lg bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-white/20 transition-all cursor-pointer group shadow-2xs"
-      >
-        <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
-        <span className="text-xs text-slate-500 dark:text-slate-400 ml-2.5 truncate font-sans">
-          {query ? query : 'Search topics, JSI, Git...'}
-        </span>
-        <div className="ml-auto flex items-center gap-1 shrink-0">
-          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200/80 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded">
+      {variant === 'compact' ? (
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative flex items-center justify-between w-32 xl:w-44 h-8 px-2.5 sm:px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-white/20 transition-all cursor-pointer group shadow-2xs shrink-0"
+          title="Search docs, topics, JSI, Git (⌘K)"
+        >
+          <div className="flex items-center gap-1.5 min-w-0">
+            <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
+            <span className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 truncate font-sans">
+              {query ? query : 'Search'}
+            </span>
+          </div>
+          <kbd className="inline-flex items-center px-1.5 py-0.5 text-[9px] font-mono text-slate-400 dark:text-slate-400 bg-slate-200/80 dark:bg-white/10 border border-slate-300 dark:border-white/10 rounded shrink-0">
             ⌘K
           </kbd>
         </div>
-      </div>
+      ) : variant === 'wide' ? (
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative flex items-center justify-between w-full h-9 px-3.5 rounded-xl bg-slate-100/90 dark:bg-white/[0.06] border border-slate-200/90 dark:border-white/10 hover:border-emerald-500/50 dark:hover:border-emerald-500/40 hover:bg-slate-200/60 dark:hover:bg-white/[0.09] transition-all cursor-pointer group shadow-2xs"
+          title="Search docs, JSI, Git commands... (⌘K)"
+        >
+          <div className="flex items-center gap-2.5 min-w-0">
+            <Search className="w-4 h-4 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
+            <span className="text-xs text-slate-500 dark:text-slate-400 truncate font-sans">
+              {query ? query : placeholder || 'Search docs, JSI, Git commands...'}
+            </span>
+          </div>
+          <div className="ml-auto flex items-center gap-1 shrink-0">
+            <kbd className="inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium text-slate-500 dark:text-slate-400 bg-slate-200 dark:bg-white/10 border border-slate-300 dark:border-white/15 rounded shadow-2xs">
+              ⌘K
+            </kbd>
+          </div>
+        </div>
+      ) : (
+        <div
+          onClick={() => setIsOpen(true)}
+          className="relative flex items-center w-full h-9 px-3 rounded-lg bg-slate-100 dark:bg-black/60 border border-slate-200 dark:border-white/10 hover:border-emerald-500/40 dark:hover:border-white/20 transition-all cursor-pointer group shadow-2xs"
+        >
+          <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-500 dark:group-hover:text-emerald-400 transition-colors shrink-0" />
+          <span className="text-xs text-slate-500 dark:text-slate-400 ml-2.5 truncate font-sans">
+            {query ? query : placeholder || 'Search topics, JSI, Git...'}
+          </span>
+          <div className="ml-auto flex items-center gap-1 shrink-0">
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-500 dark:text-slate-400 bg-slate-200/80 dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded">
+              ⌘K
+            </kbd>
+          </div>
+        </div>
+      )}
 
       {/* Dropdown Result List (Animated with Framer Motion) */}
       <AnimatePresence>
